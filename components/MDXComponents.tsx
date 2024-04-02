@@ -1,16 +1,23 @@
-import TOCInline from 'pliny/ui/TOCInline'
-import Pre from 'pliny/ui/Pre'
-import BlogNewsletterForm from 'pliny/ui/BlogNewsletterForm'
-import type { MDXComponents } from 'mdx/types'
-import Image from './Image'
-import CustomLink from './Link'
-import TableWrapper from './TableWrapper'
+/* eslint-disable react/display-name */
+import React from 'react';
+import { MDXLayout, ComponentMap } from 'pliny/mdx-components';
+import { TOCInline } from 'pliny/ui/TOCInline';
+import { Pre } from 'pliny/ui/Pre';
+import { BlogNewsletterForm } from 'pliny/ui/NewsletterForm';
 
-export const components: MDXComponents = {
+import Image from './Image';
+import CustomLink from './Link';
+
+export const Wrapper = ({ layout, content, ...rest }: MDXLayout) => {
+  const Layout = require(`../layouts/${layout}`).default;
+  return <Layout content={content} {...rest} />;
+};
+
+export const MDXComponents: ComponentMap = {
   Image,
   TOCInline,
   a: CustomLink,
   pre: Pre,
-  table: TableWrapper,
+  wrapper: Wrapper,
   BlogNewsletterForm,
-}
+};
